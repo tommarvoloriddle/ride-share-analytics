@@ -19,7 +19,7 @@ const links = [
     href: '/analytics/fare',
     icon: DocumentDuplicateIcon,
   },
-  { name: 'Trip Volume', 
+  { name: 'Trip Duration', 
     href: '/analytics/volume', 
     icon: UserGroupIcon 
   },
