@@ -9,11 +9,12 @@ const {
   locations
 } = require('@/app/lib/locations');
 import { getFare } from '@/app/lib/data';
+import { get } from 'http';
 
 const PredictForm: React.FC = () => {
 
-const [selectedLocationPickUp, setSelectedLocationPickUp] = useState<string>(locations[10].Zone); // Default to New York
-const [selectedLocationDropOff, setSelectedLocationDropOff] = useState<string>(locations[0].Zone); // Default to New York
+const [selectedLocationPickUp, setSelectedLocationPickUp] = useState<string>(locations[10].Zone.toString()); // Default to New York
+const [selectedLocationDropOff, setSelectedLocationDropOff] = useState<string>(locations[0].Zone.toString()); // Default to New York
 const [predictedFare, setPredictedFare] = useState<Number>(0); // Default to New York
 
 const handleLocationChangePickUp = (selectedValue: string) => {
@@ -37,11 +38,10 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   // You can perform additional actions here when the form is submitted
   console.log(`Predicting fare for trip from ${selectedLocationPickUp} to ${selectedLocationDropOff}`);
 
-  getFare(1, 10).then((data) => {
-    console.log(data);
-    setPredictedFare(data.fare);
-    setPredictionRequested(false);
-  });
+  const predictedFare = await getFare(1, 10);
+
+  setPredictedFare(predictedFare.valueOf());
+
     // Call the API to predict the fare
     // const response = await fetch('/api/predict-fare', {
     //   method: 'POST',

@@ -23,12 +23,12 @@ export async function getFare(pickupID: number, DropID: number) {
 
     const data = await sql<Fare>`SELECT fare FROM fares WHERE fares.pickupID = ${pickupID} AND fares.DropID = ${DropID}`;
     console.log(data.rows);
-    const fareFormatted =  formatCurrency(data.rows[0].fare);
+    // const fareFormatted =  formatCurrency(data.rows[0].fare);
 
 
     // console.log('Data fetch completed after 3 seconds.');
 
-    return fareFormatted;
+    return data.rows[0].fare;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
